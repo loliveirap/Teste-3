@@ -1,0 +1,98 @@
+﻿@using Objetivo.Conveniadas.Site.Models
+
+@{
+    ViewBag.Title = "CONVENIADAS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["Nulo"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade in" id="mensagem" role=alert>
+        <button type="button" id="fechar" class=close><span aria-hidden=true>&times;</span></button>
+        <p>
+            <ul>
+                <li>
+                    <div>Nenhum registro encontrado.</div>
+                </li>
+            </ul>
+        </p>
+    </div>
+}
+
+<form class="form-horizontal" onsubmit="return checkForm()" method="post" action="@Url.Action(ViewContext.RouteData.Values["Action"].ToString(), new { })">
+
+    <div class="form-group hidden-print">
+        <div class="col-md-4 col-sm-12">
+            <label>Digite o Código ou o Nome da Conveniada</label>
+            <input type="text" name="txtFiltro" id="txtFiltro" class="form-control" placeholder="Informe palavra chave" />
+            <b id="msgPalavraChave" style="color: #f00; font-size: 12px;"></b>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <label>&ensp;</label>
+            <button type="submit" class="btn btn-primary btn-block">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <span><b>BUSCAR</b></span>
+            </button>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <label>&ensp;</label>
+            <a class="btn btn-success btn-block" href="@Url.Action("Cadastrar", new {@Controller = "Conveniada" })">
+                <span class="glyphicon glyphicon-plus-sign"></span> CADASTRAR CONVENIADA
+            </a>
+        </div>
+    </div>
+</form>
+
+@if (Model.Count > 0)
+{
+    <div class="fw-container">
+        <div class="fw-body">
+            <div class="content">
+                <table id="example" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Cód. Unidade</th>
+                            <th>CNPJ</th>
+                            <th>Razão Social</th>
+                            <th>Escola</th>
+                            <th>Data de Cadastro</th>
+                            <th>Tipo</th>
+                            <th>Funcional/Nome</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (UnidadeFisicaModel item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @item.ID_UnidadeFisica
+                                </td>
+                                <td>
+                                    <a title="Acessar detalhes sobre @item.CNPJ" href="@Url.Action("Info", new { @filtro = item.CNPJ })">@item.CNPJ</a>
+                                </td>
+                                <td>
+                                    @item.RazaoSocial
+                                </td>
+                                <td>@item.Escola</td>
+                                <td>@string.Format("{0}", item.DataCadastro != null ? item.DataCadastro.Value.ToShortDateString() : "")</td>
+                                <td>
+                                    @*@item.Tipo*@ Conveniada
+                                </td>
+                                <td>
+                                    690864 - Leandro Oliveira
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+    @*
+        <div id="modalProgress" class="modal fade" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-hidden="true" style="padding-top:15%;">
+            @Html.Partial("~/Views/Shared/_PartialLoading.cshtml");
+        </div>*@
+
+
+

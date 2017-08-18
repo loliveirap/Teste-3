@@ -1,0 +1,316 @@
+﻿@model Objetivo.Conveniadas.Site.Models.UnidadeFisicaModel
+
+@{
+    ViewBag.Title = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Scripts/jquery.maskedinput.js"></script>
+<script src="~/Scripts/templateConveniadas.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        debugger;
+        $.mask.definitions['~'] = "[+-]";
+        $("#date").mask("99/99/9999", { placeholder: "mm/dd/yyyy", completed: function () { alert("completed!"); } });
+        $("#cnpj").mask("99.999.999/9999-99");
+        $("#cep").mask("99999-999");
+        $("#te1").mask("(99)9999-9999");
+        $("#tel2").mask("(99)9999-9999");
+        $("#cel").mask("(99)99999-9999");
+    });
+
+</script>
+<link href="~/Content/template.css" rel="stylesheet" />
+<br/>
+<div class="row"> 
+    <div class="text-center"><h5><strong>INFORMAÇÕES DETALHADAS</strong></h5><h6>Data de Cadastro: @string.Format("{0}", Model.DataCadastro != null ? Model.DataCadastro.Value.ToShortDateString() : "")</h6></div>   
+    <div role="tabpanel">
+        <div class="col-sm-3" style="font-size: 11px; font-weight:bold;">
+            <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
+                <li role="presentation" class="brand-nav active"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab" style="padding: 5px 15px;">INFORMAÇÕES GERAIS</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab" style="padding: 5px 15px;">DADOS ACADÊMICOS</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" style="padding: 5px 15px;">INFORMAÇÃO ADICONAL DO CONVÊNIOS</a></li>
+                <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" style="padding: 5px 15px;">INFORMAÇÃO DO APOIO PEDAGÓGICO</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-9">
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="tab1">
+                    @Html.HiddenFor(x => x.Id)
+                    <div class="form-group row">
+                        <div class="col-sm-4 template">
+                            @Html.LabelFor(x => x.CNPJ)
+                            @Html.TextBoxFor(x => x.CNPJ, new { @class = "form-control input-sm", placeholder = "00.000.000/0000-00", disabled = "disabled", name = "cnpj", id = "cnpj" })
+                        </div>
+                        <div class="col-sm-8 template">
+                            @Html.LabelFor(x => x.RazaoSocial)
+                            @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control input-sm disabled", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-sm-4 template">
+                            @Html.LabelFor(x => x.Escola)
+                            @Html.TextBoxFor(x => x.Escola, new { @class = "form-control input-sm disabled", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-2 template">
+                            @Html.LabelFor(x => x.Endereco.CEP)
+                            @Html.TextBoxFor(x => x.Endereco.CEP, new { @class = "form-control input-sm", name = "cep", id = "cep", value = "", size = "10", maxlength = "9", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4 template">
+                            @Html.LabelFor(x => x.Endereco.Logradouro)
+                            @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control input-sm", name = "rua", id = "rua", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-2 template">
+                            @Html.LabelFor(x => x.Endereco.Numero)
+                            @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-4 template">
+                            @Html.LabelFor(x => x.Endereco.Complemento)
+                            @Html.TextBoxFor(x => x.Endereco.Complemento, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-3 template">
+                            @Html.LabelFor(x => x.Endereco.Bairro)
+                            @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control input-sm", name = "bairro", id = "bairro", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-4 template">
+                            @Html.LabelFor(x => x.Endereco.Municipio.Nome)
+                            @Html.TextBoxFor(x => x.Endereco.Municipio.Nome, new { @class = "form-control input-sm", name = "cidade", id = "cidade", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-1 template">
+                            @Html.LabelFor(x => x.Endereco.Municipio.UF)
+                            @Html.TextBoxFor(x => x.Endereco.Municipio.UF, new { @class = "form-control input-sm", name = "uf", id = "uf", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2 template">
+                            <label>Telefone 1</label>
+                            @Html.TextBoxFor(x => x.Endereco.Contato.Telefone1.Numero, new { @class = "form-control input-sm", placeholder = "(00)0000-0000", id = "tel1" })
+                        </div>
+                        <div class="col-sm-2 template">
+                            <label>Telefone 2</label>
+                            @Html.TextBoxFor(x => x.Endereco.Contato.Telefone2.Numero, new { @class = "form-control input-sm", placeholder = "(00)0000-0000", id = "tel2" })
+                        </div>
+                        <div class="col-sm-2 template">
+                            <label>Celular</label>
+                            @Html.TextBoxFor(x => x.Endereco.Contato.Celular.Numero, new { @class = "form-control input-sm", placeholder = "(00)00000-0000", disabled = "disabled", id = "cel" })
+                        </div>
+                        <div class="col-sm-3 template">
+                            @Html.LabelFor(x => x.FalarCom)
+                            @Html.TextBoxFor(x => x.FalarCom, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                        <div class="col-sm-3 template">
+                            @Html.LabelFor(x => x.Endereco.Contato.Email)
+                            @Html.TextBoxFor(x => x.Endereco.Contato.Email, new { @class = "form-control input-sm", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tab2">
+                    <div class="form-group row">
+                        <div class="col-md-3 col-sm-6">
+                            <div class="template2 text-center"> @Html.LabelFor(x => x.Modalidade.EducacaoInfantil.EI_Fase_1)</div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Fase_1, new { type = "checkbox", disabled = "disabled" })
+                                    1 - Fase 1
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Fase_2, new { type = "checkbox", disabled = "disabled" })
+                                    1 - Fase 2
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Infantil_2, new { type = "checkbox", disabled = "disabled" })
+                                    Infantil 2
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Infantil_3, new { type = "checkbox", disabled = "disabled" })
+                                    Infantil 3
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="template2 text-center">
+                                @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.EF_1_ao_5_ano)
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.EF_1_ao_5_ano, new { type = "checkbox", disabled = "disabled" })
+                                    1º ao 5º ano
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.EF_6_ao_9_ano, new { type = "checkbox", disabled = "disabled" })
+                                    6º ao 9º ano
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="template2 text-center">
+                                @Html.LabelFor(x => x.Modalidade.EnsinoMedio.EM_1_Serie)
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.EM_1_Serie, new { type = "checkbox", disabled = "disabled" })
+                                    1º Série
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.EM_2_Serie, new { type = "checkbox", disabled = "disabled" })
+                                    2º Série
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.EM_3_Serie, new { type = "checkbox", disabled = "disabled" })
+                                    3º Série
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-6">
+                            <div class="template2 text-center">
+                                @Html.LabelFor(x => x.Modalidade.PreVestibular.PV_Extensivo)
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_Extensivo, new { type = "checkbox", disabled = "disabled" })
+                                    Extensivo
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_Semi, new { type = "checkbox", disabled = "disabled" })
+                                    Semi
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_30_Aulas, new { type = "checkbox", disabled = "disabled" })
+                                    30 aulas
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_25_Aulas, new { type = "checkbox", disabled = "disabled" })
+                                    25 aulas
+                                </label>
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_20_Aulas, new { type = "checkbox", disabled = "disabled" })
+                                    20 aulas
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-8 col-sm-12">
+                            @Html.LabelFor(x => x.Modalidade.OutrosObservacao)
+                            @Html.TextBoxFor(x => x.Modalidade.OutrosObservacao, new { @class = "form-control input-sm col-sm", disabled = "disabled" })
+                        </div>
+
+                        <div class="col-md-4 col-sm-12">
+                            @Html.LabelFor(x => x.TotalDeAlunos)
+                            @Html.TextBoxFor(x => x.TotalDeAlunos, new { @class = "form-control input-sm col-sm", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6 col-sm-12">
+                            @Html.LabelFor(x => x.UtilizaSistemaDeEnsino)
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.UtilizaSistemaDeEnsino, "S", new { name = "optionsRadios", id = "optionsRadios1", value = "option1", disabled = "disabled" })
+                                    Sim
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.UtilizaSistemaDeEnsino, "N", new { name = "optionsRadios", id = "optionsRadios2", value = "option2", disabled = "disabled" })
+                                    Não
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    @Html.LabelFor(x => x.UtilizaSistemaDeEnsinoObservacao)
+                                    @Html.TextBoxFor(x => x.UtilizaSistemaDeEnsinoObservacao, new { @class = "form-control input-sm col-sm", disabled = "disabled" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            @Html.LabelFor(x => x.PossuiEAD)
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.PossuiEAD, "S", new { name = "optionsRadios2", id = "optionsRadios3", value = "option3", disabled = "disabled" })
+                                    Sim
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.PossuiEAD, "N", new { name = "optionsRadios2", id = "optionsRadios4", value = "option4", disabled = "disabled" })
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3 col-sm-12">
+                            @Html.LabelFor(x => x.InteresseNaUnip)
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.InteresseNaUnip, "S", new { name = "optionsRadios3", id = "optionsRadios5", value = "option5", disabled = "disabled" })
+                                    Sim
+                                </label>
+                            </div>
+                            <div class="radio">
+                                <label>
+                                    @Html.RadioButtonFor(m => m.InteresseNaUnip, "N", new { name = "optionsRadios3", id = "optionsRadios6", value = "option6", disabled = "disabled" })
+                                    Não
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tab3">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(x => x.DepartamentoConvenios)
+                            @Html.TextAreaFor(x => x.DepartamentoConvenios, new { @class = "form-control", rows = "8", style = "resize:none", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane" id="tab4">
+                    <div class="form-group row">
+                        <div class="col-sm-12">
+                            @Html.LabelFor(x => x.ApoioPedagogico)
+                            @Html.TextAreaFor(x => x.ApoioPedagogico, new { @class = "form-control", rows = "8", style = "resize:none", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-3 col-sm-12">
+                        <button type="submit" class="btn btn-primary btn-block">
+                            <span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+                            Editar
+                        </button>
+                    </div>
+                    <div class="col-md-3 col-sm-12">
+                        <button type="submit" class="btn btn-danger btn-block">
+                            <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
+                            Voltar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

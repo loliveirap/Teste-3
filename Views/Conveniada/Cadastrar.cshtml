@@ -1,0 +1,854 @@
+﻿@{
+    ViewBag.Title = "Cadastrar";
+    Layout = null;
+}
+
+@Html.Partial("_PartialConveniada")
+
+
+@*@model Objetivo.Conveniadas.Site.Models.UnidadeFisicaModel
+
+<link href="~/Content/template.css" rel="stylesheet" />
+
+</br>
+@if (ViewBag.Mensagem != null)
+{
+    <div class="@ViewBag.Class" id="mensagem" role=alert>
+        <button type="button" id="fechar" class=close><span aria-hidden=true>&times;</span></button>
+        <p>
+            <ul>
+                <li>
+                    @ViewBag.Mensagem
+                </li>
+            </ul>
+        </p>
+    </div>
+}
+
+<div class="row">
+    <form class="form-horizontal" method="post">
+        @Html.HiddenFor(x => x.Id)
+        <div class="text-center" style="color: #fff200;background-color: #004a8f;margin-top:7px;"><strong>CONVENIADAS - DADOS CADASTRAIS</strong></div>
+        <div class="form-group" style="margin-top:20px; margin-right: 5px;margin-left: 5px;">
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(x => x.CNPJ)
+                    @Html.TextBoxFor(x => x.CNPJ, new { @class = "form-control input-sm", placeholder = "00.000.000/0000-00", name = "cnpj", id = "cnpj" })
+                    <small>@Html.ValidationMessageFor(x => x.CNPJ, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-8">
+                    @Html.LabelFor(x => x.RazaoSocial)
+                    @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control input-sm", placeholder = "Digite a Razão Social..." })
+                    <small>@Html.ValidationMessageFor(x => x.RazaoSocial, null, new { @class = "text-danger" })</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(x => x.Escola)
+                    @Html.TextBoxFor(x => x.Escola, new { @class = "form-control input-sm", placeholder = "Digite o nome da Escola..." })
+                    <small>@Html.ValidationMessageFor(x => x.CNPJ, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(x => x.Endereco.CEP)
+                    @Html.TextBoxFor(x => x.Endereco.CEP, new { @class = "form-control input-sm", name = "cep", id = "cep", value = "", size = "10", maxlength = "9", placeholder = "00000-000" })
+                    <small>@Html.ValidationMessageFor(x => x.Endereco.CEP, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-4">
+                    @Html.LabelFor(x => x.Endereco.Logradouro)
+                    @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control input-sm", name = "rua", id = "rua", placeholder = "Rua/Avenida..." })
+                    <small>@Html.ValidationMessageFor(x => x.Endereco.Logradouro, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(x => x.Endereco.Numero)
+                    @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control input-sm", placeholder = "00000" })
+                    <small>@Html.ValidationMessageFor(x => x.Endereco.Numero, null, new { @class = "text-danger" })</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-4">
+                    @Html.LabelFor(x => x.Endereco.Complemento)
+                    @Html.TextBoxFor(x => x.Endereco.Complemento, new { @class = "form-control input-sm", placeholder = "Casa/Apartamento..." })
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(x => x.Endereco.Bairro)
+                    @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control input-sm", name = "bairro", id = "bairro", placeholder = "Digite o nome do Bairro..." })
+                    <small>@Html.ValidationMessageFor(x => x.Endereco.Bairro, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(x => x.Endereco.Municipio)
+                    @Html.TextBoxFor(x => x.Endereco.Municipio, new { @class = "form-control input-sm", name = "cidade", id = "cidade", placeholder = "Digite o nome da Cidade..." })
+                    <small>@Html.ValidationMessageFor(x => x.Endereco.Municipio, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-2">
+                    @Html.LabelFor(x => x.Endereco.UF)
+                    @Html.TextBoxFor(x => x.Endereco.UF, new { @class = "form-control input-sm", name = "uf", id = "uf", placeholder = "UF" })
+                    <small>@Html.ValidationMessageFor(x => x.Endereco.UF, null, new { @class = "text-danger" })</small>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2">
+                    <label>Telefone 1</label>
+                    @Html.TextBoxFor(x => x.Endereco.Contato.Telefone1.Numero, new { @class = "form-control input-sm", placeholder = "(00)0000-0000", id = "tel1" })
+                </div>
+                <div class="col-sm-2">
+                    <label>Telefone 2</label>
+                    @Html.TextBoxFor(x => x.Endereco.Contato.Telefone2.Numero, new { @class = "form-control input-sm", placeholder = "(00)0000-0000", id = "tel2" })
+                </div>
+                <div class="col-sm-2">
+                    <label>Celular</label>
+                    @Html.TextBoxFor(x => x.Endereco.Contato.Celular.Numero, new { @class = "form-control input-sm", placeholder = "(00)00000-0000", id = "cel" })
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(x => x.FalarCom)
+                    @Html.TextBoxFor(x => x.FalarCom, new { @class = "form-control input-sm", placeholder = "Digite o nome do Contato..." })
+                    <small>@Html.ValidationMessageFor(x => x.CNPJ, null, new { @class = "text-danger" })</small>
+                </div>
+                <div class="col-sm-3">
+                    @Html.LabelFor(x => x.Endereco.Contato.Email)
+                    @Html.TextBoxFor(x => x.Endereco.Contato.Email, new { @class = "form-control input-sm", placeholder = "xxxx@.com.br" })
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="color: #fff200;background-color: #004a8f;"><strong>CONVENIADAS - CURSOS</strong></div>
+        <div class="form-group col-md-12" style="margin-top:20px; padding-left: 0px;padding-right: 0px;">
+            <div class="col-md-5 col-sm-12 col-xs-12">               
+                <div class="template2 text-center">
+                    @Html.LabelFor(x => x.Modalidade.EducacaoInfantil.Edu_Inf_Fase_1)
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.Edu_Inf_Fase_1, new { type = "checkbox" })
+                            1 - Fase 1
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.Edu_Inf_Fase_2, new { type = "checkbox" })
+                            1 - Fase 2
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.Edu_Inf_2, new { type = "checkbox" })
+                            Infantil 2
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.Eedu_Inf_3, new { type = "checkbox" })
+                            Infantil 3
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="template2 text-center" id="ensFun1" style="margin-right: -30px;">
+                    <b>Ensino Fundamental</b>                    
+                </div>
+                <div class="col-md-6 col-sm-12">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_1, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_1)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_2, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_2)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_3, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_3)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_4, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_4)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_5, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_5)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-6">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_6, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_6)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_7, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_7)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_8, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_8)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_9, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.Ens_Fun_9)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-md-12" style="margin-top:20px; padding-left: 0px;padding-right: 0px;">
+            <div class="col-md-5 col-sm-12 col-xs-12">
+                <div class="template2 text-center">                    
+                    <b>Ensino Médio</b>
+                </div>
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.Ens_Med_1, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoMedio.Ens_Med_1)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.Ens_Med_2, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoMedio.Ens_Med_2)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.Ens_Med_3, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.EnsinoMedio.Ens_Med_3)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-4 col-xs-3 right" style="float:right;" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-7 col-sm-12 col-xs-12">
+                <div class="template2 text-center" style="margin-right: -30px;">
+                    Pré-Vestibular
+                </div>
+                <div class="col-md-12 col-xl-12">
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PRE_VES_EXTENSIVO, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.PreVestibular.PRE_VES_EXTENSIVO)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Aulas" />
+                        <input class="col-md-2 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-3 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PRE_VES_INTENSIVO, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.PreVestibular.PRE_VES_INTENSIVO)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Aulas" />
+                        <input class="col-md-2 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-3 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PRE_VES_SEMI, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.PreVestibular.PRE_VES_SEMI)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Aulas" />
+                        <input class="col-md-2 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-3 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PRE_VES_TURMAS_MAIO, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.PreVestibular.PRE_VES_TURMAS_MAIO)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Aulas" />
+                        <input class="col-md-2 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-3 col-xs-3 right" style="float:right;" />
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PRE_VES_ENEM, new { type = "checkbox" })
+                            @Html.LabelFor(x => x.Modalidade.PreVestibular.PRE_VES_ENEM)
+                        </label>
+                        <input class="col-md-3 col-xs-2 right" style="float:right;" placeholder="Aulas" />
+                        <input class="col-md-2 col-xs-2 right" style="float:right;" placeholder="Ano" />
+                        <input class="col-md-3 col-xs-3 right" style="float:right;" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="color: #fff200;background-color: #004a8f;"><strong>CONVENIADAS - NÚMEROS</strong></div>
+        <div class="form-group col-md-12" style="margin-top:20px;">
+            <div class="col-sm-3">
+                @Html.LabelFor(x => x.TotalDeAlunos)
+                <span class="pull-right"><b>SIC</b></span>
+                @Html.TextBoxFor(x => x.TotalDeAlunos, new { @class = "form-control input-sm col-sm" })
+                
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(x => x.TotalDeCoordenadores)
+                <span class="pull-right"><b>SIC</b></span>
+                @Html.TextBoxFor(x => x.TotalDeCoordenadores, new { @class = "form-control input-sm col-sm" })
+            </div>
+            <div class="col-sm-3">
+                @Html.LabelFor(x => x.TotalDeProfessores)
+                <span class="pull-right"><b>SIC</b></span>
+                @Html.TextBoxFor(x => x.TotalDeProfessores, new { @class = "form-control input-sm col-sm" })
+            </div>
+        </div>
+        <div class="text-center" style="color: #fff200;background-color: #004a8f;"><strong>CONVENIADAS - SISTEMA DE ENSINO</strong></div>
+        <div class="form-group col-md-12" style="margin-top:20px;">
+            <div class="col-md-4 col-sm-12">
+                @Html.LabelFor(x => x.UtilizaSistemaDeEnsino)
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.UtilizaSistemaDeEnsino, "S", new { name = "optionsRadios", id = "optionsRadios1", value = "option1" })
+                        Sim
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.UtilizaSistemaDeEnsino, "N", new { name = "optionsRadios", id = "optionsRadios2", value = "option2" })
+                        Não
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 input-group">
+                        @Html.LabelFor(x => x.UtilizaSistemaDeEnsinoObservacao, new { @class = "input-group-addon", style = "font-weight: bold" })
+                        @Html.TextBoxFor(x => x.UtilizaSistemaDeEnsinoObservacao, new { @class = "form-control input-sm col-sm" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @Html.LabelFor(x => x.PossuiEAD)
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.PossuiEAD, "S", new { name = "optionsRadios2", id = "optionsRadios3", value = "option3" })
+                        Sim
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.PossuiEAD, "N", new { name = "optionsRadios2", id = "optionsRadios4", value = "option4" })
+                        Não
+                    </label>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12 input-group">
+                        @Html.LabelFor(x => x.PossuiEADObservacao, new { @class = "input-group-addon", style = "font-weight: bold" })
+                        @Html.TextBoxFor(x => x.PossuiEADObservacao, new { @class = "form-control input-sm col-sm" })
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12">
+                @Html.LabelFor(x => x.InteresseNoEADdaUnip)
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.InteresseNoEADdaUnip, "S", new { name = "optionsRadios3", id = "optionsRadios5", value = "option5" })
+                        Sim
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.InteresseNoEADdaUnip, "N", new { name = "optionsRadios3", id = "optionsRadios6", value = "option6" })
+                        Não
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="text-center" style="color: #fff200;background-color: #004a8f;"><strong>CONVENIADAS - INFORMAÇÃO DOS CONVÊNIOS</strong></div>
+        <div class="form-group col-md-12" style="margin-top:20px;">
+            <div class="col-sm-12">
+                @Html.LabelFor(x => x.DepartamentoConvenios)
+                @Html.TextAreaFor(x => x.DepartamentoConvenios, new { @class = "form-control", rows = "4", style = "resize:none" })
+            </div>
+        </div>
+        <div class="text-center" style="color: #fff200;background-color: #004a8f;"><strong>CONVENIADAS - INFORMAÇÃO DOS CONVÊNIOS</strong></div>
+        <div class="form-group col-md-12" style="margin-top:20px;">
+            <div class="col-sm-12">
+                @Html.LabelFor(x => x.ApoioPedagogico)
+                @Html.TextAreaFor(x => x.ApoioPedagogico, new { @class = "form-control", rows = "4", style = "resize:none" })
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2 right">
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                    SALVAR
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section scripts{
+
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
+    <script src="~/Scripts/templateConveniadas.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $.mask.definitions['~'] = "[+-]";
+            $("#date").mask("99/99/9999", { placeholder: "mm/dd/yyyy", completed: function () { alert("completed!"); } });
+            $("#cnpj").mask("99.999.999/9999-99");
+            $("#cep").mask("99999-999");
+            $("#tel1").mask("(99)9999-9999");
+            $("#tel2").mask("(99)9999-9999");
+            $("#cel").mask("(99)99999-9999");
+        });
+
+        $('#fechar').on('click', function () {
+            $('#mensagem').hide();
+        });
+    </script>
+}*@
+
+@*<div class="row">
+        <div class="text-center">
+            <h5><strong>CADASTRO DE CONVENIADAS</strong></h5>
+            <h6>Data: @DateTime.Now.ToShortDateString()</h6>
+            <h6>Funcionário: 690864 - Leandro Oliveira</h6>
+        </div>
+        <div role="tabpanel">
+            <div class="col-sm-3 visible-lg visible-md" style="font-size: 11px; font-weight:bold;">
+                <ul class="nav nav-pills brand-pills nav-stacked" role="tablist">
+                    <li role="presentation" class="brand-nav active">
+                        <a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab" style="padding: 5px 15px;">
+                            INFORMAÇÕES GERAIS
+                            <span class="pull-right danger hidden" id="campoObrigatorio">
+                                <span class="glyphicon glyphicon-exclamation-sign" title="* Campos Obrigatórios!"></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li role="presentation" class="brand-nav"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab" style="padding: 5px 15px;">DADOS ACADÊMICOS</a></li>
+                    <li role="presentation" class="brand-nav"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab" style="padding: 5px 15px;">INFORMAÇÃO ADICONAL DO CONVÊNIOS</a></li>
+                    <li role="presentation" class="brand-nav"><a href="#tab4" aria-controls="tab4" role="tab" data-toggle="tab" style="padding: 5px 15px;">INFORMAÇÃO DO APOIO PEDAGÓGICO</a></li>
+                </ul>
+            </div>
+
+            <div class="col-sm-9">
+                <form name="form" method="post">
+                    <div class="tab-content">
+                        <div role="tabpanel" class="tab-pane active" id="tab1">
+                            @Html.HiddenFor(x => x.Id)
+                            <div class="form-group row">
+                                <div class="col-sm-4 template">
+                                    @Html.LabelFor(x => x.CNPJ)
+                                    @Html.TextBoxFor(x => x.CNPJ, new { @class = "form-control input-sm", placeholder = "00.000.000/0000-00", name = "cnpj", id = "cnpj" })
+                                    <small>@Html.ValidationMessageFor(x => x.CNPJ, null, new { @class = "text-danger" })</small>
+                                </div>
+                                <div class="col-sm-8 template">
+                                    @Html.LabelFor(x => x.RazaoSocial)
+                                    @Html.TextBoxFor(x => x.RazaoSocial, new { @class = "form-control input-sm", placeholder = "Digite a Razão Social..." })
+                                    <small>@Html.ValidationMessageFor(x => x.RazaoSocial, null, new { @class = "text-danger" })</small>
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-4 template">
+                                    @Html.LabelFor(x => x.Escola)
+                                    @Html.TextBoxFor(x => x.Escola, new { @class = "form-control input-sm", placeholder = "Digite o nome da Escola..." })
+                                </div>
+                                <div class="col-sm-2 template">
+                                    @Html.LabelFor(x => x.Endereco.CEP)
+                                    @Html.TextBoxFor(x => x.Endereco.CEP, new { @class = "form-control input-sm", name = "cep", id = "cep", value = "", size = "10", maxlength = "9", placeholder = "00000-000" })
+                                </div>
+                                <div class="col-sm-4 template">
+                                    @Html.LabelFor(x => x.Endereco.Logradouro)
+                                    @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control input-sm", name = "rua", id = "rua", placeholder = "Rua/Avenida..." })
+                                </div>
+                                <div class="col-sm-2 template">
+                                    @Html.LabelFor(x => x.Endereco.Numero)
+                                    @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control input-sm", placeholder = "00000" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-4 template">
+                                    @Html.LabelFor(x => x.Endereco.Complemento)
+                                    @Html.TextBoxFor(x => x.Endereco.Complemento, new { @class = "form-control input-sm", placeholder = "Casa/Apartamento..." })
+                                </div>
+                                <div class="col-sm-3 template">
+                                    @Html.LabelFor(x => x.Endereco.Bairro)
+                                    @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control input-sm", name = "bairro", id = "bairro", placeholder = "Digite o nome do Bairro..." })
+                                </div>
+                                <div class="col-sm-4 template">
+                                    @Html.LabelFor(x => x.Endereco.Municipio.Nome)
+                                    @Html.TextBoxFor(x => x.Endereco.Municipio.Nome, new { @class = "form-control input-sm", name = "cidade", id = "cidade", placeholder = "Digite o nome da Cidade..." })
+                                </div>
+                                <div class="col-sm-1 template">
+                                    @Html.LabelFor(x => x.Endereco.Municipio.UF)
+                                    @Html.TextBoxFor(x => x.Endereco.Municipio.UF, new { @class = "form-control input-sm", name = "uf", id = "uf", placeholder = "UF" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-sm-2 template">
+                                    <label>Telefone 1</label>
+                                    @Html.TextBoxFor(x => x.Endereco.Contato.Telefone1.Numero, new { @class = "form-control input-sm", placeholder = "(00)0000-0000", id = "tel1" })
+                                </div>
+                                <div class="col-sm-2 template">
+                                    <label>Telefone 2</label>
+                                    @Html.TextBoxFor(x => x.Endereco.Contato.Telefone2.Numero, new { @class = "form-control input-sm", placeholder = "(00)0000-0000", id = "tel2" })
+                                </div>
+                                <div class="col-sm-2 template">
+                                    <label>Celular</label>
+                                    @Html.TextBoxFor(x => x.Endereco.Contato.Celular.Numero, new { @class = "form-control input-sm", placeholder = "(00)00000-0000", id = "cel" })
+                                </div>
+                                <div class="col-sm-3 template">
+                                    @Html.LabelFor(x => x.FalarCom)
+                                    @Html.TextBoxFor(x => x.FalarCom, new { @class = "form-control input-sm", placeholder = "Digite o nome do Contato..." })
+                                </div>
+                                <div class="col-sm-3 template">
+                                    @Html.LabelFor(x => x.Endereco.Contato.Email)
+                                    @Html.TextBoxFor(x => x.Endereco.Contato.Email, new { @class = "form-control input-sm", placeholder = "xxxx@.com.br" })
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab2">
+                            <div class="form-group row">
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="template2 text-center"> @Html.LabelFor(x => x.Modalidade.EducacaoInfantil.EI_Fase_1)</div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Fase_1, new { type = "checkbox" })
+                                            1 - Fase 1
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Fase_2, new { type = "checkbox" })
+                                            1 - Fase 2
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Infantil_2, new { type = "checkbox" })
+                                            Infantil 2
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EducacaoInfantil.EI_Infantil_3, new { type = "checkbox" })
+                                            Infantil 3
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="template2 text-center">
+                                        @Html.LabelFor(x => x.Modalidade.EnsinoFundamental.EF_1_ao_5_ano)
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.EF_1_ao_5_ano, new { type = "checkbox" })
+                                            1º ao 5º ano
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoFundamental.EF_6_ao_9_ano, new { type = "checkbox" })
+                                            6º ao 9º ano
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="template2 text-center">
+                                        @Html.LabelFor(x => x.Modalidade.EnsinoMedio.EM_1_Serie)
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.EM_1_Serie, new { type = "checkbox" })
+                                            1º Série
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.EM_2_Serie, new { type = "checkbox" })
+                                            2º Série
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.EnsinoMedio.EM_3_Serie, new { type = "checkbox" })
+                                            3º Série
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-6">
+                                    <div class="template2 text-center">
+                                        @Html.LabelFor(x => x.Modalidade.PreVestibular.PV_Extensivo)
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_Extensivo, new { type = "checkbox" })
+                                            Extensivo
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_Semi, new { type = "checkbox" })
+                                            Semi
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_30_Aulas, new { type = "checkbox" })
+                                            30 aulas
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_25_Aulas, new { type = "checkbox" })
+                                            25 aulas
+                                        </label>
+                                    </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            @Html.CheckBoxFor(x => x.Modalidade.PreVestibular.PV_20_Aulas, new { type = "checkbox" })
+                                            20 aulas
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-8 col-sm-12">
+                                    @Html.LabelFor(x => x.Modalidade.OutrosObservacao)
+                                    @Html.TextBoxFor(x => x.Modalidade.OutrosObservacao, new { @class = "form-control input-sm col-sm" })
+                                </div>
+
+                                <div class="col-md-4 col-sm-12">
+                                    @Html.LabelFor(x => x.TotalDeAlunos)
+                                    @Html.TextBoxFor(x => x.TotalDeAlunos, new { @class = "form-control input-sm col-sm" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-6 col-sm-12">
+                                    @Html.LabelFor(x => x.UtilizaSistemaDeEnsino)
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(m => m.UtilizaSistemaDeEnsino, "S", new { name = "optionsRadios", id = "optionsRadios1", value = "option1" })
+                                            Sim
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(m => m.UtilizaSistemaDeEnsino, "N", new { name = "optionsRadios", id = "optionsRadios2", value = "option2" })
+                                            Não
+                                        </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            @Html.LabelFor(x => x.UtilizaSistemaDeEnsinoObservacao)
+                                            @Html.TextBoxFor(x => x.UtilizaSistemaDeEnsinoObservacao, new { @class = "form-control input-sm col-sm" })
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+                                    @Html.LabelFor(x => x.PossuiEAD)
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(m => m.PossuiEAD, "S", new { name = "optionsRadios2", id = "optionsRadios3", value = "option3" })
+                                            Sim
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(m => m.PossuiEAD, "N", new { name = "optionsRadios2", id = "optionsRadios4", value = "option4" })
+                                            Não
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+                                    @Html.LabelFor(x => x.InteresseNaUnip)
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(m => m.InteresseNaUnip, "S", new { name = "optionsRadios3", id = "optionsRadios5", value = "option5" })
+                                            Sim
+                                        </label>
+                                    </div>
+                                    <div class="radio">
+                                        <label>
+                                            @Html.RadioButtonFor(m => m.InteresseNaUnip, "N", new { name = "optionsRadios3", id = "optionsRadios6", value = "option6" })
+                                            Não
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab3">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(x => x.DepartamentoConvenios)
+                                    @Html.TextAreaFor(x => x.DepartamentoConvenios, new { @class = "form-control", rows = "8", style = "resize:none" })
+                                </div>
+                            </div>
+                        </div>
+                        <div role="tabpanel" class="tab-pane" id="tab4">
+                            <div class="form-group row">
+                                <div class="col-sm-12">
+                                    @Html.LabelFor(x => x.ApoioPedagogico)
+                                    @Html.TextAreaFor(x => x.ApoioPedagogico, new { @class = "form-control", rows = "8", style = "resize:none" })
+                                </div>
+                            </div>
+                            <div class="form-group row pull-right">
+                                <div class="col-sm-3">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                        Salvar Cadastro
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <ul class="list-inline pull-right">
+                                <li><button type="button" class="btn btn-default prev-step">Anterior</button></li>
+                                <li><button type="button" class="btn btn-default next-step">Próximo</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>*@
+
+
+@*<form class="form-horizontal" method="post">
+        <h4>Cadastro de Conveniadas</h4>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label>CNPJ:</label>
+                <input type="text" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-5">
+                <label>Razão Social:</label>
+                <input type="text" class="form-control input-sm col-sm-12" />
+            </div>
+            <div class="col-sm-5">
+                <label>Escola:</label>
+                <input type="text" class="form-control input-sm col-sm-12" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label>CEP:</label>
+                <input name="cep" type="text" id="cep" value="" size="10" maxlength="9" class="form-control input-sm" />
+            </div>
+            <div class="col-sm-5">
+                <label>Endereço:</label>
+                <input name="rua" type="text" id="rua" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-1">
+                <label>Nº:</label>
+                <input type="text" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-4">
+                <label>Complemento:</label>
+                <input type="text" class="form-control input-sm" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-4">
+                <label>Bairro:</label>
+                <input name="bairro" type="text" id="bairro" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-4">
+                <label>Cidade:</label>
+                <input name="cidade" type="text" id="cidade" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-1">
+                <label>UF:</label>
+                <input name="uf" type="text" id="uf" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>Estado:</label>
+                <input type="text" class="form-control input-sm col-sm" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-3">
+                <label>Telefone:</label>
+                <input name="bairro" type="text" id="bairro" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>Celular:</label>
+                <input name="cidade" type="text" id="cidade" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>Contato:</label>
+                <input name="uf" type="text" id="uf" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>E-mail:</label>
+                <input type="text" class="form-control input-sm col-sm" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-sm-3">
+                <label>Educação Infantil:</label>
+                <input name="bairro" type="text" id="bairro" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>Educação Fundamental:</label>
+                <input name="cidade" type="text" id="cidade" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>Contato:</label>
+                <input name="uf" type="text" id="uf" class="form-control input-sm col-sm" />
+            </div>
+            <div class="col-sm-3">
+                <label>E-mail:</label>
+                <input type="text" class="form-control input-sm col-sm" />
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-2">
+                <label>&ensp;</label>
+                <button type="submit" class="btn btn-primary btn-block">
+                    <span class="glyphicon glyphicon-save" aria-hidden="true"></span>
+                    Salvar
+                </button>
+            </div>
+        </div>
+    </form>*@

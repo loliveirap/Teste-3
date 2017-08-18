@@ -1,0 +1,25 @@
+﻿@{
+    ViewBag.Title = null;
+}
+<style type="text/css">
+    a.list-group-item:hover{
+        background-color: #004a8f;
+        color:#ffffff;
+    }
+    .list-group-item {
+        background-color:#004a8f;
+   }
+   .list-group a {
+       color:#fff200;
+       width:200px;
+   }
+</style>
+<div class="fade in col-lg-12" style="margin-top:40px;">
+    @*<h3><strong>Sistema para cadastro de Conveniadas e Prefeituras.</strong></h3>*@
+    <div class="list-group col-lg-12 row text-center">
+        <a href='@Url.Action("Cadastrar", new { @Controller = "Conveniada" })' class="list-group-item list-group-item-success" title='Conveniadas' style="border-radius: 9px;"><b>CONVENIADAS</b></a><br />
+        <a href='@Url.Action("Cadastrar", new { @Controller = "Prefeitura" })' class="list-group-item list-group-item-success" title='Prefeituras' style="border-radius: 9px;"><b>PREFEITURAS</b></a><br />
+        <a href='@Url.Action("Pesquisar", new { @Controller = "Home" })' class="list-group-item list-group-item-success" title='Prefeituras' style="border-radius: 9px;"><b>CADASTRADAS</b></a>
+    </div>    
+</div>
+

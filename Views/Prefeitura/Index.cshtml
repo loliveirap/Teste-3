@@ -1,0 +1,42 @@
+﻿
+@{
+    ViewBag.Title = "PREFEITURAS";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@if (TempData["Nulo"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade in" id="mensagem" role=alert>
+        <button type="button" id="fechar" class=close><span aria-hidden=true>&times;</span></button>
+        <p>
+            <ul>
+                <li>
+                    <div>Nenhum registro encontrado.</div>
+                </li>
+            </ul>
+        </p>
+    </div>
+}
+
+<form class="form-horizontal" onsubmit="return checkForm()" method="post" action="@Url.Action(ViewContext.RouteData.Values["Action"].ToString(), new { })">
+    <div class="form-group hidden-print">
+        <div class="col-md-4 col-sm-12">
+            <label>Digite o Código ou o Nome da Prefeitura</label>
+            <input type="text" name="txtFiltro" id="txtFiltro" class="form-control" placeholder="Informe palavra chave" />
+            <b id="msgPalavraChave" style="color: #f00; font-size: 12px;"></b>
+        </div>
+        <div class="col-md-2 col-sm-12">
+            <label>&ensp;</label>
+            <button type="submit" class="btn btn-primary btn-block">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                <span><b>BUSCAR</b></span>
+            </button>
+        </div>
+        <div class="col-md-3 col-sm-12">
+            <label>&ensp;</label>
+            <a class="btn btn-success btn-block" href="@Url.Action("Cadastrar", new {@Controller = "Prefeitura" })">
+                <span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> CADASTRAR PREFEITURA
+            </a>
+        </div>
+    </div>
+</form>

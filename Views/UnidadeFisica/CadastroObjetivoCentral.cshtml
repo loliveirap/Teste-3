@@ -1,0 +1,194 @@
+﻿@model Objetivo.Conveniadas.Site.Models.UnidadeFisicaModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OBJETIVO Conveniadas</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/templateMaster.css" rel="stylesheet" />
+    <link href="~/Content/template.css" rel="stylesheet" />
+    <script>
+        function ValidaNumeros()
+        {
+            var tecla = event.which;
+
+            if (tecla >= 48 && tecla <= 57) {
+                return true
+            }
+            else {
+                return false;
+            }
+            return true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container body-content">
+        <div class="col-md-1"></div>
+        <div class="col-md-10">
+            @if (TempData["Atencao"] != null)
+            {
+                <div>
+                    <div class="@TempData["Class"]" id="mensagem" role=alert>
+                        <button type="button" id="fechar" class=close><span aria-hidden=true>&times;</span></button>
+                        <p>
+                            <ul>
+                                <li>
+                                    <b>@TempData["Atencao"]</b>
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            }
+            @if (Model.ID_UnidadeFisica == null)
+            {
+                <div>
+                    <div class="alert alert-danger alert-dismissible fade in" id="mensagem" role=alert>
+                        <button type="button" id="fechar" class=close><span aria-hidden=true>&times;</span></button>
+                        <p>
+                            <ul>
+                                <li>
+                                    <b>Não existe unidade cadastrada para o usuário.</b>
+                                </li>
+                            </ul>
+                        </p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <form class="form-horizontal" method="post" onsubmit="return confirm('Confirma a alteração dos dados?');">
+                    @Html.HiddenFor(x => x.ID_UnidadeFisica)
+                    @Html.HiddenFor(x => x.Usuario.Id)
+                    <div><b>Identificação</b></div>
+                    <div class="col-md-12" style="height:2px; background-color: #004a8f;"></div>
+                    <div class="form-group" style="margin-top:20px; margin-right: 0px;margin-left: 0px;">
+                        <div class="form-group">
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-7">
+                                @Html.LabelFor(x => x.ID_UnidadeFisica)
+                                @Html.TextBoxFor(x => x.ID_UnidadeFisica, new { @class = "form-control input-sm", disabled = "disabled" })
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-5 col-xs-11">
+                                @Html.LabelFor(x => x.NomeCompleto)
+                                @Html.TextBoxFor(x => x.NomeCompleto, new { @class = "form-control input-sm", disabled = "disabled" })
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-7">
+                                @Html.LabelFor(x => x.CNPJ)
+                                @Html.TextBoxFor(x => x.CNPJ, new { @class = "form-control input-sm", placeholder = "99.999.999/9999-99", maxlength = "18", name = "cnpj", id = "cnpj", disabled = "disabled" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-11">
+                                @Html.LabelFor(x => x.InscricaoMunicipal)
+                                @Html.TextBoxFor(x => x.InscricaoMunicipal, new { @class = "form-control input-sm", disabled = "disabled" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-5 col-xs-11">
+                                @Html.LabelFor(x => x.InscricaoEstadual)
+                                @Html.TextBoxFor(x => x.InscricaoEstadual, new { @class = "form-control input-sm", disabled = "disabled" })
+                            </div>
+                        </div>
+                    </div>
+                    <div><b>Endereço</b></div>
+                    <div class="col-md-12" style="height:2px; background-color: #004a8f;"></div>
+                    <div class="form-group" style="margin-top:20px; margin-right: 0px;margin-left: 0px;">
+                        <div class="form-group">
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                @Html.LabelFor(x => x.Endereco.CEP)
+                                @Html.TextBoxFor(x => x.Endereco.CEP, new { @class = "form-control input-sm", name = "cep", id = "cep", value = "", size = "10", maxlength = "9", placeholder = "00000-000" })
+                            </div>
+                            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-9">
+                                @Html.LabelFor(x => x.Endereco.Logradouro)
+                                @Html.TextBoxFor(x => x.Endereco.Logradouro, new { @class = "form-control input-sm", name = "rua", id = "rua", placeholder = "Rua/Avenida..." })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-5 col-xs-6">
+                                @Html.LabelFor(x => x.Endereco.Bairro)
+                                @Html.TextBoxFor(x => x.Endereco.Bairro, new { @class = "form-control input-sm", name = "bairro", id = "bairro", placeholder = "Digite o nome do Bairro..." })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-5 col-xs-6">
+                                @Html.LabelFor(x => x.Endereco.Municipio)
+                                @Html.TextBoxFor(x => x.Endereco.Municipio, new { @class = "form-control input-sm", name = "cidade", id = "cidade", placeholder = "Digite o nome da Cidade..." })
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-2 col-xs-2">
+                                @Html.LabelFor(x => x.Endereco.UF)
+                                @Html.TextBoxFor(x => x.Endereco.UF, new { @class = "form-control input-sm", name = "uf", id = "uf", placeholder = "UF" })
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-3">
+                                @Html.LabelFor(x => x.Endereco.Numero)
+                                @Html.TextBoxFor(x => x.Endereco.Numero, new { @class = "form-control input-sm", placeholder = "00000" })
+                            </div>
+                            <div class="col-lg-3 col-md-3 col-sm-4 col-xs-7">
+                                @Html.LabelFor(x => x.Endereco.Complemento)
+                                @Html.TextBoxFor(x => x.Endereco.Complemento, new { @class = "form-control input-sm", placeholder = "Casa/Apartamento..." })
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-3 col-xs-4">
+                                <label>DDD</label>
+                                @Html.TextBoxFor(x => x.Endereco.Contato.Telefone1.DDD, new { @class = "form-control input-sm", placeholder = "00", id = "DDDT", maxlength = "2", onkeypress= "return ValidaNumeros(this)" })
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                                <label>Telefone</label>
+                                @Html.TextBoxFor(x => x.Endereco.Contato.Telefone1.Numero, new { @class = "form-control input-sm", placeholder = "0000-0000", id = "tel1", maxlength = "8", onkeypress = "return ValidaNumeros(this)" })
+                            </div>
+                            <div class="col-lg-1 col-md-1 col-sm-3 col-xs-4">
+                                <label>DDD</label>
+                                @Html.TextBoxFor(x => x.Endereco.Contato.Telefone2.DDD, new { @class = "form-control input-sm", placeholder = "00", id = "DDDC", maxlength = "2", onkeypress = "return ValidaNumeros(this)" })
+                            </div>
+                            <div class="col-lg-2 col-md-2 col-sm-3 col-xs-4">
+                                <label>Celular</label>
+                                @Html.TextBoxFor(x => x.Endereco.Contato.Telefone2.Numero, new { @class = "form-control input-sm", placeholder = "0000-0000", id = "tel2", maxlength = "9", onkeypress = "return ValidaNumeros(this)" })
+                            </div>
+                        </div>
+                    </div>
+                    <div><b>Dados de Divulgação (<b style="font-size:11px;">Dados aqui inseridos serão utilizados para divulgação</b>)</b></div>
+                    <div class="col-md-12" style="height:2px; background-color: #004a8f;"></div>
+                    <div class="form-group" style="margin-top:20px; margin-right: 0px;margin-left: 0px;">
+                        <div class="form-group">
+                            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-11">
+                                @Html.LabelFor(x => x.NomeAbreviado)
+                                @Html.TextBoxFor(x => x.NomeAbreviado, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="col-lg-8 col-md-8 col-sm-5 col-xs-11">
+                                @Html.LabelFor(x => x.FanPage)
+                                @Html.TextBoxFor(x => x.FanPage, new { @class = "form-control input-sm", placeholder="Fanpage" })
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-7 col-md-7 col-sm-6 col-xs-6">
+                                @Html.LabelFor(x => x.Site)
+                                @Html.TextBoxFor(x => x.Site, new { @class = "form-control input-sm" })
+                            </div>
+                            <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6">
+                                <label>E-mail</label>
+                                @Html.TextBoxFor(x => x.Endereco.Contato.Email1, new { @class = "form-control input-sm", type = "email", placeholder = "xxxx@.com.br" })
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 right">
+                            <button type="submit" class="btn btn-primary btn-block">
+                                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                SALVAR ALTERAÇÕES
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            }
+
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    @Scripts.Render("~/bundles/bootstrap")
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
+    <script src="~/Scripts/templateConveniadas.js"></script>
+</body>
+</html>

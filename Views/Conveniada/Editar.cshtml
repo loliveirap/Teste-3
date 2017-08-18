@@ -1,0 +1,29 @@
+﻿
+@{    
+    ViewBag.Title = "Editar";
+    Layout = null;
+}
+
+@Html.Partial("_PartialConveniada")
+
+@section scripts{
+
+    <script src="~/Scripts/jquery.maskedinput.js"></script>
+    <script src="~/Scripts/templateConveniadas.js"></script>
+
+    <script type="text/javascript">
+        $(function () {
+            $.mask.definitions['~'] = "[+-]";
+            $("#date").mask("99/99/9999", { placeholder: "mm/dd/yyyy", completed: function () { alert("completed!"); } });
+            $("#cnpj").mask("99.999.999/9999-99");
+            $("#cep").mask("99999-999");
+            $("#tel1").mask("(99)9999-9999");
+            $("#tel2").mask("(99)9999-9999");
+            $("#cel").mask("(99)99999-9999");
+        });
+
+        $('#fechar').on('click', function () {
+            $('#mensagem').hide();
+        });
+    </script>
+}
